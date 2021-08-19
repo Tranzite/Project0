@@ -1,0 +1,18 @@
+header
+    h2 Redigera elev
+
+div
+    form action="/klasser/#{result['id']}/update" method="post"
+        label for="student_name" Elevens namn: 
+        input type="text" name="student_name" placeholder="Skriv in namnet" value="#{result['name']}"
+        / label for="price" Price: 
+        / input type="number" name="price" placeholder="Enter price" value="#{result['price']}"
+        / label for="stock" Stock: 
+        / input type="number" name="stock" placeholder="Enter stock" value="#{result['stock']}"
+        / label for="description" Description: 
+        / input type="text" name="description" placeholder="Enter description" value="#{result['description']}"
+        / label for="cat" (Cat)egory:
+        / select id="cat" name="cat"
+        /     - categories.each do |category|
+        /         option value="#{category['category']}" = category['category']
+        input type="submit" value="Edit item"

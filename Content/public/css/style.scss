@@ -1,0 +1,150 @@
+$bgcolor: rgb(25, 1, 45);
+$navcolor: rgb(97, 48, 119);
+$textcolor: white;
+// ruby app.rb -o 0.0.0.0
+// http://192.168.4.182:4567
+@font-face {
+    font-family: 'SoletoLight';
+    src: url('Dalton_Maag-Soleto_Light.ttf');
+}
+
+body {
+    margin: 0;
+    background: $bgcolor;
+    color: $textcolor;
+    font-family: 'SoletoLight';
+    nav {
+        padding: 0 2rem 0 2rem;
+        background: $navcolor;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        h1 {
+            flex-grow: 1;
+        }
+        a {
+            margin: 1rem;
+            text-decoration: none;
+            color: $textcolor;
+        }
+    }
+    header {
+        color: $textcolor;
+        display: grid;
+        grid-template-columns: calc(100%/3) calc(100%/3) calc(100%/3);
+        justify-content: center;
+        align-items: center;
+        a {
+            color: $textcolor;    
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0 3rem;
+        }
+    }
+    .items {
+        padding: 4rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        float: left;
+        article {
+            margin: 1rem;
+            background: $navcolor;
+            display: flex;
+            flex-direction: column;
+            a {
+                color: $textcolor;
+                text-decoration: none;
+                div {
+                    padding: 0 .5rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+            }
+            img {
+                height: 14rem;
+                width: 14rem;
+                object-fit: cover;
+            }
+        }
+    }
+    .selected {
+        section {
+            padding: 4rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            float: left;
+            article {
+                margin: 1rem;
+                background: $navcolor;
+                display: flex;
+                flex-direction: column;
+                a {
+                    color: $textcolor;
+                    text-decoration: none;
+                    div {
+                        padding: 0 .5rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                    }
+                }
+                img {
+                    height: 14rem;
+                    width: 14rem;
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+    aside {
+        background: white;
+        width: 18rem;
+        float: right;
+        position: sticky;
+        margin-top: -4.2rem;
+        height: 42.8rem;
+    }
+    main {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0 5rem;
+        article {
+            display: flex;
+            grid-gap: 2rem;
+            div {
+                background: $navcolor;
+                flex-direction: column;
+                justify-content: center;
+                img {
+                    height: 12rem;
+                    width: 12rem;
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+    div {
+        color: $textcolor;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: fit-content;
+        }
+    }
+    .back {
+        padding: 2rem;
+    }
+    #logo {
+        width: 12rem;
+    }
+}

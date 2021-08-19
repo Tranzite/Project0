@@ -1,0 +1,41 @@
+header
+    div class="title-item"
+        a href="/klasser"
+            svg xmlns="http://www.w3.org/2000/svg" class="back" height="2rem" viewBox="0 0 24 24" width="2rem" fill="#FFFFFF"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
+    div class="title-item"
+        h2 Elever
+    div class="title-item"
+        -   if session[:id] == 1
+                a href="/klasser/#{class_id}/new" 
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#EEEEEE"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                    p Lägg till elev
+
+main 
+    article
+        - result.each do |res|
+            div 
+                img src="/#{res['image']}"
+                p = "#{res['name']}"
+                -   if session[:id] == 1
+                    a href="/klasser/#{res['id']}/edit" 
+                        input type="submit" value="Redigera"
+                    form action="/klasser/#{res['id']}/delete" method="post"
+                        input type="submit" value="Ta bort"/
+ 
+        /img src="/#{result['image']}" 
+            / h2 = result['name']
+            / b = "Price: #{result['price']}$"
+            / b = "Stock: #{result['stock']}"
+            / p = result['description']
+            / - if session[:id] != nil
+            /     form action="/items/#{result['id']}/add_item" method="post"
+            /         input type="number" name="item_count"/
+            /         input type="submit" value="Add to cart"/
+            / - else
+            /     a href="/cart"
+            /         input type="submit" value="Add to cart"/
+        / - if session[:id] == 1
+        /     a href="/klasser/#{result['id']}/edit" 
+        /         input type="submit" value="Redigera"
+        /     form action="/klasser/#{result['id']}/delete" method="post"
+        /         input type="submit" value="Ta bort"/

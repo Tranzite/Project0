@@ -1,0 +1,21 @@
+header
+    h2 Create item
+
+div
+    form action="/klasser/new" method="post" 
+        / enctype="multipart/form-data" (står efter form ifall bilder)
+        label for="class_name" Klassnamn: 
+        input type="text" name="class_name" placeholder="Namnet på klassen"
+        / label for="image" Image: 
+        / input type="file" name="image"
+        / label for="price" Price: 
+        / input type="number" name="price" placeholder="Enter price"
+        / label for="stock" Stock: 
+        / input type="number" name="stock" placeholder="Enter stock"
+        / label for="description" Description: 
+        / input type="text" name="description" placeholder="Enter description"
+        / label for="cat" (Cat)egory:
+        / select id="cat" name="cat"
+            - categories.each do |category|
+                option value="#{category['category']}" = category['category']
+        input type="submit" value="Skapa klass!"

@@ -1,0 +1,5 @@
+div
+    - if session[:error] == nil 
+        h2 = "Something went wrong."
+    - else 
+        h2 = session[:error]
