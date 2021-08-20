@@ -4,6 +4,7 @@ require 'sqlite3'
 require 'bcrypt'
 require_relative 'model.rb'
 enable :sessions
+set :session_secret, 'UoRCowyRlL9sXHu'
 
 include Helper
 
@@ -274,6 +275,6 @@ end
 
 # The user is logged out and redirected to /
 post('/logout') do
-    session[:id] = nil
+    session.clear
     redirect('/')
 end

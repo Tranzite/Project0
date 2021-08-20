@@ -98,6 +98,12 @@ body header a {
       -ms-flex-align: center;
           align-items: center;
   padding: 0 3rem;
+  font-size: 1.1rem;
+  font-family: "SoletoThin";
+}
+
+body header a p {
+  padding-right: .4rem;
 }
 
 body .items {
@@ -115,6 +121,7 @@ body .items article {
   margin: 1rem;
   background: #613077;
   padding: 1rem 2rem;
+  border-radius: .5rem;
 }
 
 body .items article a {
@@ -232,7 +239,7 @@ body main {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  padding: 0 5rem;
+  padding: 3rem;
 }
 
 body main article {
@@ -256,6 +263,7 @@ body main article div {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  border-radius: .5rem;
 }
 
 body main article div img {
@@ -263,6 +271,7 @@ body main article div img {
   width: 12rem;
   -o-object-fit: cover;
      object-fit: cover;
+  border-radius: .5rem .5rem 0 0;
 }
 
 body div {
@@ -297,6 +306,42 @@ body div form {
   width: fit-content;
 }
 
+body .form form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  background: #613077;
+  border-radius: .5rem;
+  padding: 2rem;
+}
+
+body .form form h2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+body .form form input {
+  height: 1.1rem;
+  margin: .3rem 0;
+}
+
+body .form form .form_button {
+  background: none;
+  color: white;
+  border: 1px solid white;
+  padding: .5rem 1rem;
+  height: auto;
+  margin-top: 1.5rem;
+}
+
 body #logo {
   width: 12rem;
 }
@@ -324,5 +369,14 @@ body #memorybody img {
   height: 25rem;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+body #guessform {
+  padding: 1rem;
+}
+
+body #front_background {
+  background-image: url("../img/background.jpg");
+  background-color: blue;
 }
 /*# sourceMappingURL=style.css.map */

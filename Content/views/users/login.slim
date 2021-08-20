@@ -1,13 +1,14 @@
-header
-    div class="title-item"
-    div class="title-item"
-        h2 Logga in
-    div class="title-item"
+/ header
+/     div class="title-item"
+/     div class="title-item"
+/         h2 Logga in
+/     div class="title-item"
 
-div
+main class="form" 
     form action="/login" method="post"
+        h2 Logga in 
         label for="username" Användarnamn: 
         input type="text" name="username" placeholder="Användarnamn"
         label for="password" Lösenord: 
         input type="password" name="password" placeholder="Lösenord"
-        input type="submit" value="Logga in"
+        input type="submit" value="Logga in" class="form_button"

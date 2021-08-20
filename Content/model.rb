@@ -36,6 +36,7 @@ module Helper
                 session[:user] = username
                 p session[:user]
                 session[:id] = id
+                
                 redirect('/klasser')
             else
                 session[:error] = "Wrong password or username. Try again"

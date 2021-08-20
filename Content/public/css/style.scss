@@ -69,6 +69,11 @@ body {
             display: flex;
             align-items: center;
             padding: 0 3rem;
+            font-size: 1.1rem;
+            font-family: "SoletoThin";
+            p {
+                padding-right: .4rem;
+            }
         }
     }
     .items {
@@ -80,6 +85,7 @@ body {
             margin: 1rem;
             background: $navcolor;
             padding: 1rem 2rem;
+            border-radius: .5rem;
             a {
                 color: $textcolor;
                 text-decoration: none;
@@ -154,7 +160,7 @@ body {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        padding: 0 5rem;
+        padding: 3rem;
         article {
             display: flex;
             justify-content: center;
@@ -164,10 +170,12 @@ body {
                 background: $navcolor;
                 flex-direction: column;
                 justify-content: center;
+                border-radius: .5rem;
                 img {
                     height: 12rem;
                     width: 12rem;
                     object-fit: cover;
+                    border-radius: .5rem .5rem 0 0;
                 }
             }
         }
@@ -185,9 +193,31 @@ body {
             width: fit-content;
         }
     }
-    // .back {
-    //     padding: 2rem;
-    // }
+    .form {
+        form {
+            display: flex;
+            flex-flow: column;
+            background: $navcolor;
+            border-radius: .5rem;
+            padding: 2rem;
+            h2 {
+                display: flex;
+                justify-content: center;
+            }
+            input {
+                height: 1.1rem;
+                margin: .3rem 0;
+            }
+            .form_button{
+                background: none;
+                color: white;
+                border: 1px solid white;
+                padding: .5rem 1rem;
+                height: auto;
+                margin-top: 1.5rem;
+            }
+        }
+    }
     #logo {
         width: 12rem;
     }
@@ -200,10 +230,18 @@ body {
         width: 30%;
         margin: auto;
         
+        
         img {
             width: 20rem;
             height: 25rem;
             object-fit: cover;
         }
+    }
+    #guessform{
+        padding: 1rem;
+    }
+    #front_background {
+        background-image: url("../img/background.jpg");
+        background-color: blue;
     }
 } 

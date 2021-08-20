@@ -1,16 +1,17 @@
-header
-    div class="title-item"
-    div class="title-item"
-        h2 Registrera ett konto
-    div class="title-item"
+/ header
+/     div class="title-item"
+/     div class="title-item"
+/         h2 Registrera ett konto
+/     div class="title-item"
 
 
-div
+main class="form"
     form action="/register" method="post"
+        h2 Registrera dig
         label for="username" Användarnamn: 
         input type="text" name="username" placeholder="Skriv in ditt användarnamn"
         label for="password" Lösenord: 
         input type="password" name="password" placeholder="Skriv in ditt lösenord"
         label for="password_confirm" Bekräfta lösenord: 
         input type="password" name="password_confirm" placeholder="Skriv in ditt lösenord"
-        input type="submit" value="Registrera dig"
+        input type="submit" value="Registrera dig" class="form_button"
