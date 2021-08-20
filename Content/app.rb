@@ -28,72 +28,119 @@ end
 
 # Displays landing page
 get('/') do
-    sleep(3)
-    db = connect_db("db/webshop.db")
-    id = 1
-    result = db.execute("SELECT * FROM students WHERE class_id = ?",id)
-    slim(:index, locals:{result:result})
-end 
-
-# Displays all items contained in the database
-get('/klasser') do
-    db = connect_db("db/webshop.db")
-    result = db.execute("SELECT * FROM categories")
-    slim(:"items/index",locals:{categories:result})
+    slim(:index)
 end
 
-# Displays page to create new item
+get('/spel') do
+    sleep(1)
+    db = connect_db("db/webshop.db")
+    result = db.execute("SELECT * FROM selected_classes WHERE user_id = ?",session[:id])
+    i = 0
+    result2 = []
+    while i < result.length
+        result2 << result[i]['class_id']
+        i+=1
+    end
+    p result2
+    result3 = db.execute("SELECT * FROM students WHERE class_id IN (#{result2.join(",")})")
+    p result3
+    slim(:"games/guess",locals:{students:result3})
+end
+
+get ('/api/students') do
+    db = connect_db("db/webshop.db")
+    result = db.execute("SELECT * FROM selected_classes WHERE user_id = ?",session[:id])
+    i = 0
+    result2 = []
+    while i < result.length
+        result2 << result[i]['class_id']
+        i+=1
+    end
+    p result2
+    result3 = db.execute("SELECT * FROM students WHERE class_id IN (#{result2.join(",")})")
+    p result3
+    result3.to_json
+end
+
+# Displays all classes contained in the database
+get('/klasser') do
+    db = connect_db("db/webshop.db")
+    result = db.execute("SELECT * FROM classes")
+    result2 = db.execute("SELECT * FROM selected_classes WHERE user_id = ?",session[:id])
+    #p result2
+    #eventuellt lägga till så de är icheckade fortfarande
+    slim(:"items/index",locals:{classes:result})
+end
+
+# Saves the selected classes to the account and redirects to /elever
+#
+# @param [Array] selected
+#
+# @return selected classes saved
+post('/klasser/submit_classes') do
+    db = connect_db("db/webshop.db")
+    select_array = params['selected']
+    result = db.execute("SELECT * FROM selected_classes WHERE user_id = ?",session[:id])
+    if result.empty?    
+        select_array.each do |selec|
+            db.execute("INSERT INTO selected_classes (user_id, class_id) VALUES (?,?)",session[:id],selec)
+        end
+    else
+        db.execute("DELETE FROM selected_classes WHERE user_id = ?",session[:id])
+        select_array.each do |selec|
+            db.execute("INSERT INTO selected_classes (user_id, class_id) VALUES (?,?)",session[:id],selec)
+        end
+    end
+    redirect('/elever')
+end
+
+# Displays page to create new class
 get('/klasser/new') do
     db = connect_db("db/webshop.db")
     slim(:"items/new")
 end
 
-# Creates a new item and redirects to /items
+# Creates a new item and redirects to /klasser
 #
-# @param [String] item_name
-# @param [Integer] price
-# @param [Integer] stock
-# @param [String] path
-# @param [String] description
-# @param [String] category
+# @param [String] class_name
 #
-# @return item is created & categories_items_relation updated
+# @return klass is created 
 post('/klasser/new') do
     db = connect_db("db/webshop.db")
     class_name = params[:class_name]
-    # stock = params[:stock].to_i
-    # price = params[:price].to_i
-    # if params[:image] && params[:image][:filename]
-    #     filename = params[:image][:filename]
-    #     file = params[:image][:tempfile]
-    #     path = "./public/img/#{filename}"
-    #     File.open(path, 'wb') do |f|
-    #         f.write(file.read)
-    #     end
-    #     path = "img/#{filename}"
-    # end
-
-    params = [class_name] #,stock,price,path,description,category]
+    params = [class_name]
     is_valid(params)
 
-    #db.execute("INSERT INTO items (name,stock,price,image,description) VALUES (?,?,?,?,?)",item_name,stock,price,path,description)
-    db.execute("INSERT INTO categories (category) VALUES (?)",class_name)
+    db.execute("INSERT INTO classes (class) VALUES (?)",class_name)
 
-    #Lägger in i många till många-tabellen
-    # id_category = db.execute("SELECT * FROM categories WHERE category = ?",category).first
-    # item_id = db.execute("SELECT id FROM items ORDER BY id DESC LIMIT 1").first
-    # db.execute("INSERT INTO categories_items_relation (item_id,category_id) VALUES (?,?)",item_id[0],id_category[0])
     redirect('/klasser')
 end
 
+# Displays page with students of a class
+get('/klasser/:id') do
+    db = connect_db("db/webshop.db")
+    id = params[:id].to_i
+    result = db.execute("SELECT * FROM students WHERE class_id = ?",id)
+    p result
+    class_name = db.execute("SELECT * FROM classes WHERE id = ?",id).first
+    slim(:"items/show",locals:{result:result, class_id: id, class_name:class_name})
+end
+
+# Displays page to create new student
 get('/klasser/:id/new') do
     id = params[:id].to_i
     slim(:"items/newstudent", locals:{id: id})
 end
 
+# Creates a new student and redirects to /klasser/id
+#
+# @param [String] student_name
+# @param [Image] image
+#
+# @return student is created
 post('/klasser/:id/new') do
     db = connect_db("db/webshop.db")
-    student = params[:student_name]
+    student_name = params[:student_name]
     id = params[:id].to_i
     if params[:image] && params[:image][:filename]
         filename = params[:image][:filename]
@@ -104,9 +151,9 @@ post('/klasser/:id/new') do
         end
         path = "img/#{filename}"
     end
-    param = [student, path]
+    param = [student_name, path]
     is_valid(param)
-    db.execute("INSERT INTO students (name,image,class_id) VALUES (?,?,?)",student,path,id)
+    db.execute("INSERT INTO students (name,image,class_id) VALUES (?,?,?)",student_name,path,id)
     redirect("/klasser/#{id}")
 end
 
@@ -116,9 +163,18 @@ end
 post('/klasser/:id/delete') do
     db = connect_db("db/webshop.db")
     id = params[:id].to_i
-    db.execute("DELETE FROM categories WHERE id = ?", id)
-    db.execute("DELETE FROM cart WHERE item_id = ?", id)
-    redirect('/klasser')
+    class_id = session[:class_id]
+    db.execute("DELETE FROM students WHERE id = ?", id)
+    redirect("/klasser/#{class_id}")
+end
+
+# Displays interface to edit item
+get('/klasser/:id/edit') do
+    db = connect_db("db/webshop.db")
+    id = params[:id].to_i
+    result = db.execute("SELECT * FROM students WHERE id = ?", id).first
+    result2 = db.execute("SELECT * FROM classes")
+    slim(:"/items/edit", locals:{result:result,classes:result2})
 end
 
 # Updates the params of an item and redirects to /items
@@ -126,23 +182,20 @@ end
 # @param [Integer] id Id of item
 # @param [String] item_name
 # @param [Integer] price
-# @param [Integer] stock
 # @param [String] description
 #
 # @return item is updated
 post('/klasser/:id/update') do
     db = connect_db("db/webshop.db")
     id = params[:id].to_i
-    item_name = params[:item_name]
-    stock = params[:stock].to_i
-    price = params[:price].to_i
-    description = params[:description]
+    student_name = params[:student_name]
+    #student_class = params[:student_class]
 
-    params = [item_name,stock,price,description,id]
+    params = [student_name,id]
     is_valid(params)
 
-    db.execute("UPDATE items SET name = ?,stock = ?,price = ?,description = ? WHERE id = ?",item_name,stock,price,description,id)
-    redirect('/klasser')
+    db.execute("UPDATE students SET name = ? WHERE id = ?",student_name,id)
+    redirect("/klasser/#{session[:class_id]}")
 end
 
 # Adds an item to the users cart and redirects to /items
@@ -165,33 +218,19 @@ post('/klasser/:id/add_item') do
     redirect('/klasser')
 end
 
-# Displays interface to edit item
-get('/klasser/:id/edit') do
+# Displays the users students
+get('/elever') do
     db = connect_db("db/webshop.db")
-    id = params[:id].to_i
-    result = db.execute("SELECT * FROM items WHERE id = ?", id).first
-    result2 = db.execute("SELECT * FROM categories")
-    slim(:"/items/edit", locals:{result:result,categories:result2})
-end
-  
-# Displays item
-get('/klasser/:id') do
-    db = connect_db("db/webshop.db")
-    id = params[:id].to_i
-    result = db.execute("SELECT * FROM students WHERE class_id = ?",id)
-    p result
-    slim(:"items/show",locals:{result:result, class_id: id})
-end
-
-# Displays the users cart
-get('/cart') do
-    db = connect_db("db/webshop.db")
-    result = db.execute("SELECT * FROM cart WHERE user_id = ?",session[:id])
+    result = db.execute("SELECT * FROM selected_classes WHERE user_id = ?",session[:id])
+    p result[0]['class_id']
+    i = 0
     result2 = []
-    result.each do |item|
-        result2 << db.execute("SELECT * FROM items WHERE id = ?",item['item_id'])
+    while i < result.length
+        result2 << result[i]['class_id']
+        i+=1
     end
-    slim(:"cart/index",locals:{cart:result,items:result2})
+    result3 = db.execute("SELECT * FROM students WHERE class_id IN (#{result2.join(",")})")
+    slim(:"selected/index",locals:{students:result3})
 end
 
 # Displays a login page

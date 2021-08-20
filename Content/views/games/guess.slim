@@ -1,0 +1,54 @@
+div
+    h2 Memorize!
+
+div id="memorybody"
+    div 
+        h3 Vilken elev är det här?
+
+    div id="studentId"
+        img id="student" src="img/cat_comfy.jpg" alt="width=1000" height="300"
+
+    /document.getElementById("message").innerHTML = "Du vann!";
+    /https://www.w3schools.com/js/js_htmldom_css.asp
+    div id="guessform"
+        form method="get"
+            label for="guess" Gissning: 
+            input type="text" name="guess" id="guess" placeholder="Skriv in din gissning"
+            button type="submit" id="submitGuess" value="Kolla gissning" onclick="getNames()" Kolla min gissning
+    
+    /div id="" style="display: none"
+        p id="message"
+        button id="" Spela igen
+
+javascript:
+    const names = fetch('/api/students').then(response => response.json()).then(data => guessNames(data))
+    /* function getNames() {
+         const names = fetch('/api/students').then(response => response.json()).then(data => guessNames(data))
+    }*/
+    function guessNames(names){
+        const randomPos = Math.floor(Math.random() * names.length);
+        const randomName = names[randomPos]['name']
+        console.log('Random Name', randomName)
+        
+        const img = document.querySelector("#student")
+        img.setAttribute("src", names[randomPos]["image"])
+        console.log(img)
+
+        function checkGuess() {
+            
+            let myGuess = guess.value
+                if (myGuess.toLowerCase() === randomName.toLowerCase()){
+                    alert("Du svarade rätt!")
+                }
+                else {  
+                    alert("Du svarade fel")
+                }
+        }
+        submitGuess.addEventListener('click', checkGuess)
+    }
+
+
+        
+ 
+
+ 

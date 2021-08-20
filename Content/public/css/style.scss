@@ -5,7 +5,15 @@ $textcolor: white;
 // http://192.168.4.182:4567
 @font-face {
     font-family: 'SoletoLight';
-    src: url('Dalton_Maag-Soleto_Light.ttf');
+    src: url('../fonts/Dalton_Maag-Soleto_Light.ttf');
+}
+@font-face {
+    font-family: 'SoletoMedium';
+    src: url('../fonts/Dalton_Maag-Soleto_Medium.ttf');
+}
+@font-face {
+    font-family: 'SoletoThin';
+    src: url('../fonts/Dalton_Maag-Soleto_Thin.ttf');
 }
 
 body {
@@ -21,11 +29,32 @@ body {
         align-items: center;
         h1 {
             flex-grow: 1;
+            margin: 0;
+            font-family: 'SoletoThin';
+            font-size: 1.8rem;
+            a {
+                align-items: center;
+                h1{
+                    padding-left: .5rem;
+                }
+            }
         }
         a {
+            display: flex;
             margin: 1rem;
             text-decoration: none;
             color: $textcolor;
+            img {
+                object-fit: contain;
+            }
+        }
+        form {
+            input {
+                background: none;
+                color: $textcolor;
+                border: 1px solid white;
+                padding: .5rem 1rem;
+            }
         }
     }
     header {
@@ -44,18 +73,23 @@ body {
     }
     .items {
         padding: 4rem;
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: auto auto auto auto auto auto;
         justify-content: center;
-        float: left;
         article {
             margin: 1rem;
             background: $navcolor;
-            display: flex;
-            flex-direction: column;
+            padding: 1rem 2rem;
             a {
                 color: $textcolor;
                 text-decoration: none;
+                display: flex;
+                align-items: center;
+                p {
+                    font-family: 'SoletoMedium';
+                    padding-right: 1rem;
+                    font-size: 1.5vw;
+                }
                 div {
                     padding: 0 .5rem;
                     display: flex;
@@ -100,6 +134,14 @@ body {
             }
         }
     }
+    #select_submit {
+        font-size: 1rem;
+        font-family: 'SoletoThin';
+        color: $textcolor;
+        border: 1px white solid;
+        padding: .5rem 1rem;
+        background: none;
+    }
     aside {
         background: white;
         width: 18rem;
@@ -115,6 +157,8 @@ body {
         padding: 0 5rem;
         article {
             display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
             grid-gap: 2rem;
             div {
                 background: $navcolor;
@@ -141,10 +185,25 @@ body {
             width: fit-content;
         }
     }
-    .back {
-        padding: 2rem;
-    }
+    // .back {
+    //     padding: 2rem;
+    // }
     #logo {
         width: 12rem;
     }
-}
+    #memorybody{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #613077;
+        flex-flow: column;
+        width: 30%;
+        margin: auto;
+        
+        img {
+            width: 20rem;
+            height: 25rem;
+            object-fit: cover;
+        }
+    }
+} 

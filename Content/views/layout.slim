@@ -12,14 +12,14 @@ html lang="en"
         h1 
             a href="/"
                 img src="/img/Nti_logo.png" id="logo"
+                h1 Minneslekar 
         - if session[:id] != nil
-            a href="/cart" Elever 
-        - if session[:id] != nil
-            a
-                a href="/klasser" Klasser
-                a = "Inloggad som #{session[:user]}"
-                form action="/logout" method="post"  
-                    input type="submit" value="Logga ut"/
+            a href="/spel"  Spel       
+            a href="/elever" Elever 
+            a href="/klasser" Klasser
+            a = "Inloggad som #{session[:user]}"
+            form action="/logout" method="post"  
+                input type="submit" value="Logga ut"/
             
         - else 
             a href="/login" Logga in

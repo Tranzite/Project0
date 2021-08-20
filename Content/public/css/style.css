@@ -1,6 +1,16 @@
 @font-face {
   font-family: 'SoletoLight';
-  src: url("Dalton_Maag-Soleto_Light.ttf");
+  src: url("../fonts/Dalton_Maag-Soleto_Light.ttf");
+}
+
+@font-face {
+  font-family: 'SoletoMedium';
+  src: url("../fonts/Dalton_Maag-Soleto_Medium.ttf");
+}
+
+@font-face {
+  font-family: 'SoletoThin';
+  src: url("../fonts/Dalton_Maag-Soleto_Thin.ttf");
 }
 
 body {
@@ -28,12 +38,40 @@ body nav h1 {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
+  margin: 0;
+  font-family: 'SoletoThin';
+  font-size: 1.8rem;
+}
+
+body nav h1 a {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body nav h1 a h1 {
+  padding-left: .5rem;
 }
 
 body nav a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   margin: 1rem;
   text-decoration: none;
   color: white;
+}
+
+body nav a img {
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+body nav form input {
+  background: none;
+  color: white;
+  border: 1px solid white;
+  padding: .5rem 1rem;
 }
 
 body header {
@@ -64,32 +102,36 @@ body header a {
 
 body .items {
   padding: 4rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto auto auto auto auto auto;
+      grid-template-columns: auto auto auto auto auto auto;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  float: left;
 }
 
 body .items article {
   margin: 1rem;
   background: #613077;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  padding: 1rem 2rem;
 }
 
 body .items article a {
   color: white;
   text-decoration: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body .items article a p {
+  font-family: 'SoletoMedium';
+  padding-right: 1rem;
+  font-size: 1.5vw;
 }
 
 body .items article a div {
@@ -162,6 +204,15 @@ body .selected section article img {
      object-fit: cover;
 }
 
+body #select_submit {
+  font-size: 1rem;
+  font-family: 'SoletoThin';
+  color: white;
+  border: 1px white solid;
+  padding: .5rem 1rem;
+  background: none;
+}
+
 body aside {
   background: white;
   width: 18rem;
@@ -188,6 +239,11 @@ body main article {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   grid-gap: 2rem;
 }
 
@@ -241,11 +297,32 @@ body div form {
   width: fit-content;
 }
 
-body .back {
-  padding: 2rem;
-}
-
 body #logo {
   width: 12rem;
+}
+
+body #memorybody {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #613077;
+  -ms-flex-flow: column;
+      flex-flow: column;
+  width: 30%;
+  margin: auto;
+}
+
+body #memorybody img {
+  width: 20rem;
+  height: 25rem;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 /*# sourceMappingURL=style.css.map */
