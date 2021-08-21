@@ -317,6 +317,7 @@ body .form form {
   background: #613077;
   border-radius: .5rem;
   padding: 2rem;
+  width: 14rem;
 }
 
 body .form form h2 {
@@ -362,13 +363,34 @@ body #memorybody {
       flex-flow: column;
   width: 30%;
   margin: auto;
+  margin-bottom: 2rem;
+  border-radius: .5rem;
 }
 
 body #memorybody img {
-  width: 20rem;
-  height: 25rem;
+  width: 18rem;
+  height: 23rem;
   -o-object-fit: cover;
      object-fit: cover;
+  border-radius: .5rem;
+}
+
+body #memorybody label {
+  padding-bottom: .5rem;
+}
+
+body #memorybody #guess {
+  height: 1.1rem;
+  width: 14rem;
+}
+
+body #memorybody button {
+  background: none;
+  color: white;
+  border: 1px solid white;
+  padding: .5rem 1rem;
+  margin: .5rem 0 0 0;
+  width: -webkit-fill-available;
 }
 
 body #guessform {
@@ -378,5 +400,25 @@ body #guessform {
 body #front_background {
   background-image: url("../img/background.jpg");
   background-color: blue;
+}
+
+body .center {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body .center a {
+  color: blueviolet;
 }
 /*# sourceMappingURL=style.css.map */

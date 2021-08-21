@@ -200,6 +200,7 @@ body {
             background: $navcolor;
             border-radius: .5rem;
             padding: 2rem;
+            width: 14rem;
             h2 {
                 display: flex;
                 justify-content: center;
@@ -229,12 +230,28 @@ body {
         flex-flow: column;
         width: 30%;
         margin: auto;
-        
-        
+        margin-bottom: 2rem;
+        border-radius: .5rem;
         img {
-            width: 20rem;
-            height: 25rem;
+            width: 18rem;
+            height: 23rem;
             object-fit: cover;
+            border-radius: .5rem;
+        }
+        label {
+            padding-bottom: .5rem;
+        }
+        #guess {
+            height: 1.1rem;
+            width: 14rem;
+        }
+        button {
+            background: none;
+            color: white;
+            border: 1px solid white;
+            padding: .5rem 1rem;
+            margin: .5rem 0 0 0;
+            width: -webkit-fill-available;
         }
     }
     #guessform{
@@ -243,5 +260,14 @@ body {
     #front_background {
         background-image: url("../img/background.jpg");
         background-color: blue;
+    }
+    .center {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        a {
+            color: blueviolet;
+        }
     }
 } 

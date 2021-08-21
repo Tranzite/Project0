@@ -1,30 +1,34 @@
 div
     h2 Memorize!
+-  if empty == true
+    main
+        article 
+            main class="center" 
+                p Du har inte valt några klasser att komma ihåg.
+                a href="/klasser" Välj vilka klasser du har.
+-  else
+    div id="memorybody"
+        div 
+            h3 Vilken elev är det här?
 
-div id="memorybody"
-    div 
-        h3 Vilken elev är det här?
+        div id="studentId"
+            img id="student" src="img/cat_comfy.jpg" alt="width=1000" height="300"
 
-    div id="studentId"
-        img id="student" src="img/cat_comfy.jpg" alt="width=1000" height="300"
-
-    /document.getElementById("message").innerHTML = "Du vann!";
-    /https://www.w3schools.com/js/js_htmldom_css.asp
-    div id="guessform"
-        form method="get"
-            label for="guess" Gissning: 
-            input type="text" name="guess" id="guess" placeholder="Skriv in din gissning"
-            button type="submit" id="submitGuess" value="Kolla gissning" onclick="getNames()" Kolla min gissning
-    
-    /div id="" style="display: none"
-        p id="message"
-        button id="" Spela igen
+        /document.getElementById("message").innerHTML = "Du vann!";
+        /https://www.w3schools.com/js/js_htmldom_css.asp
+        div id="guessform"
+            form method="get"
+                label for="guess" Gissning: 
+                input type="text" name="guess" id="guess" placeholder="Skriv in din gissning"
+                button type="submit" id="submitGuess" value="Kolla gissning" Kolla min gissning
+        
+        /div id="" style="display: none"
+            p id="message"
+            button id="" Spela igen
 
 javascript:
     const names = fetch('/api/students').then(response => response.json()).then(data => guessNames(data))
-    /* function getNames() {
-         const names = fetch('/api/students').then(response => response.json()).then(data => guessNames(data))
-    }*/
+
     function guessNames(names){
         const randomPos = Math.floor(Math.random() * names.length);
         const randomName = names[randomPos]['name']

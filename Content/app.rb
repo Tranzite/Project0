@@ -33,19 +33,22 @@ get('/') do
 end
 
 get('/spel') do
-    sleep(1)
     db = connect_db("db/webshop.db")
     result = db.execute("SELECT * FROM selected_classes WHERE user_id = ?",session[:id])
-    i = 0
-    result2 = []
-    while i < result.length
-        result2 << result[i]['class_id']
-        i+=1
+    empty = nil
+    if result.empty?
+        empty = true
+    else
+        empty = false
+        i = 0
+        result2 = []
+        while i < result.length
+            result2 << result[i]['class_id']
+            i+=1
+        end
+        result3 = db.execute("SELECT * FROM students WHERE class_id IN (#{result2.join(",")})")
     end
-    p result2
-    result3 = db.execute("SELECT * FROM students WHERE class_id IN (#{result2.join(",")})")
-    p result3
-    slim(:"games/guess",locals:{students:result3})
+    slim(:"games/guess",locals:{students:result3, empty:empty})
 end
 
 get ('/api/students') do
@@ -81,18 +84,23 @@ end
 post('/klasser/submit_classes') do
     db = connect_db("db/webshop.db")
     select_array = params['selected']
-    result = db.execute("SELECT * FROM selected_classes WHERE user_id = ?",session[:id])
-    if result.empty?    
-        select_array.each do |selec|
-            db.execute("INSERT INTO selected_classes (user_id, class_id) VALUES (?,?)",session[:id],selec)
-        end
+    if select_array == nil
+        session[:error] = "Inga klasser valda!"
+        redirect('/error')
     else
-        db.execute("DELETE FROM selected_classes WHERE user_id = ?",session[:id])
-        select_array.each do |selec|
-            db.execute("INSERT INTO selected_classes (user_id, class_id) VALUES (?,?)",session[:id],selec)
+        result = db.execute("SELECT * FROM selected_classes WHERE user_id = ?",session[:id])
+        if result.empty?    
+            select_array.each do |selec|
+                db.execute("INSERT INTO selected_classes (user_id, class_id) VALUES (?,?)",session[:id],selec)
+            end
+        else
+            db.execute("DELETE FROM selected_classes WHERE user_id = ?",session[:id])
+            select_array.each do |selec|
+                db.execute("INSERT INTO selected_classes (user_id, class_id) VALUES (?,?)",session[:id],selec)
+            end
         end
+        redirect('/elever')
     end
-    redirect('/elever')
 end
 
 # Displays page to create new class
@@ -223,7 +231,6 @@ end
 get('/elever') do
     db = connect_db("db/webshop.db")
     result = db.execute("SELECT * FROM selected_classes WHERE user_id = ?",session[:id])
-    p result[0]['class_id']
     i = 0
     result2 = []
     while i < result.length

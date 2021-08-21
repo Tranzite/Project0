@@ -8,7 +8,6 @@ module Helper
     def connect_db(path)
         db = SQLite3::Database.new(path)
         db.results_as_hash = true
-        p db
         return db
     end
 
@@ -22,28 +21,22 @@ module Helper
     #  * :error [String] if failed login
     def login(username, password)
         db = connect_db("db/webshop.db")
-
         params = [username, password]
         is_valid(params)
-
         result = db.execute("SELECT * FROM users WHERE username=?", username).first
-        
         if result != nil
             password_digest = result["password_digest"]
             id = result["id"]
             if BCrypt::Password.new(password_digest) == password
-                p username
                 session[:user] = username
-                p session[:user]
                 session[:id] = id
-                
-                redirect('/klasser')
+                redirect('/elever')
             else
-                session[:error] = "Wrong password or username. Try again"
+                session[:error] = "Fel lösenord eller användarnamn. Försök igen."
                 redirect('/error')
             end
         else
-            session[:error] = "Wrong password or username. Try again"
+            session[:error] = "Fel lösenord eller användarnamn. Försök igen."
             redirect('/error')
         end
     end
@@ -68,13 +61,13 @@ module Helper
             if password == password_confirm
                 password_digest = BCrypt::Password.create(password)
                 db.execute("INSERT INTO users (username,password_digest) VALUES (?,?)",username,password_digest)
-                redirect('/klasser')
+                redirect('/login')
             else
-                session[:error] = "Passwords didn't match. Try again."
+                session[:error] = "Lösenorden matchade inte. Försök igen."
                 redirect('/error')
             end
         else
-            session[:error] = "Username already exists. Try again."
+            session[:error] = "Användarnamnet är upptaget. Försök igen."
             redirect('/error')
         end
     end
@@ -90,7 +83,7 @@ module Helper
         while params.length > i
             p params[i]
             if params[i] == nil || params[i] == ""
-                session[:error] = "You missed a parameter! Try again."
+                session[:error] = "Du missade en parameter! Försök igen."
                 redirect('/error')
             end
             i += 1

@@ -1,5 +1,10 @@
 div
-    - if session[:error] == nil 
-        h2 = "Something went wrong."
-    - else 
-        h2 = session[:error]
+    h2 = "Något gick fel"
+    
+main
+    article 
+        main class="center" 
+            - if session[:error] == nil 
+                p
+            - else 
+                p = session[:error]
