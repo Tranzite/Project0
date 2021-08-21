@@ -11,8 +11,8 @@ include Helper
 before do
     #p "Before KÖRS, session_user_id är #{session[:id]}."
     if session[:id] != 1
-        if (request.path_info == '/klasser/new') || (request.path_info == '/klasser/:id/edit')
-            session[:error] = "No permission."
+        if (request.path_info == '/klasser/new') || (request.path_info == '/klasser/:id/edit') || (request.path_info == '/klasser/:id/new')
+            session[:error] = "Du har inte tillstånd till denna sida."
             redirect('/error')
         end
     end
@@ -51,7 +51,7 @@ get('/spel') do
     slim(:"games/guess",locals:{students:result3, empty:empty})
 end
 
-get ('/api/students') do
+get('/api/students') do
     db = connect_db("db/webshop.db")
     result = db.execute("SELECT * FROM selected_classes WHERE user_id = ?",session[:id])
     i = 0
@@ -130,7 +130,6 @@ get('/klasser/:id') do
     db = connect_db("db/webshop.db")
     id = params[:id].to_i
     result = db.execute("SELECT * FROM students WHERE class_id = ?",id)
-    p result
     class_name = db.execute("SELECT * FROM classes WHERE id = ?",id).first
     slim(:"items/show",locals:{result:result, class_id: id, class_name:class_name})
 end

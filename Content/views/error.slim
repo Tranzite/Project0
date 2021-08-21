@@ -1,10 +1,10 @@
-div
-    h2 = "Något gick fel"
+header
+    div class="title-item"
+    div class="title-item"
+        h2 Något gick fel
+    div class="title-item"
     
-main
-    article 
-        main class="center" 
-            - if session[:error] == nil 
-                p
-            - else 
-                p = session[:error]
+main 
+    main class="center" 
+        - if session[:error] != nil 
+            p = session[:error]

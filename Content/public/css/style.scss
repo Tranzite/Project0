@@ -1,5 +1,5 @@
-$bgcolor: rgb(25, 1, 45);
-$navcolor: rgb(97, 48, 119);
+$bgcolor: #130d27;
+$navcolor: #692b6f;
 $textcolor: white;
 // ruby app.rb -o 0.0.0.0
 // http://192.168.4.182:4567
@@ -27,6 +27,11 @@ body {
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        background-image: url("../img/nti_bakgrund.png");
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-position: center;
+        box-shadow: 0px 5px 40px black;
         h1 {
             flex-grow: 1;
             margin: 0;
@@ -34,7 +39,7 @@ body {
             font-size: 1.8rem;
             a {
                 align-items: center;
-                h1{
+                h1 {
                     padding-left: .5rem;
                 }
             }
@@ -63,6 +68,15 @@ body {
         grid-template-columns: calc(100%/3) calc(100%/3) calc(100%/3);
         justify-content: center;
         align-items: center;
+        .title-item {
+            height: 5rem;
+            h2 {
+                font-size: 1.5em;
+            }
+            #games {
+                font-family: 'SoletoLight';
+            }
+        }
         a {
             color: $textcolor;    
             text-decoration: none;
@@ -79,18 +93,24 @@ body {
     .items {
         padding: 4rem;
         display: grid;
-        grid-template-columns: auto auto auto auto auto auto;
+        grid-template-columns: repeat(5, auto);
         justify-content: center;
         article {
             margin: 1rem;
             background: $navcolor;
             padding: 1rem 2rem;
             border-radius: .5rem;
+            box-shadow: 3px 3px 10px black;
             a {
                 color: $textcolor;
                 text-decoration: none;
                 display: flex;
                 align-items: center;
+                justify-content: space-between;
+                .checkbox {
+                    height: 1.5rem;
+                    width: 1.5rem;
+                }
                 p {
                     font-family: 'SoletoMedium';
                     padding-right: 1rem;
@@ -141,7 +161,7 @@ body {
         }
     }
     #select_submit {
-        font-size: 1rem;
+        font-size: 1.2rem;
         font-family: 'SoletoThin';
         color: $textcolor;
         border: 1px white solid;
@@ -162,20 +182,33 @@ body {
         justify-content: center;
         padding: 3rem;
         article {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            grid-gap: 2rem;
+            display: grid;
+            grid-template-columns: repeat(5, auto);
             div {
                 background: $navcolor;
                 flex-direction: column;
                 justify-content: center;
                 border-radius: .5rem;
+                box-shadow: 3px 3px 10px black;
+                margin: 1rem;
                 img {
-                    height: 12rem;
+                    height: 15rem;
                     width: 12rem;
                     object-fit: cover;
                     border-radius: .5rem .5rem 0 0;
+                }
+                article {
+                    display: flex;
+                    justify-content: space-between;
+                    padding-bottom: .5rem;
+                    width: 6rem;
+                    form {
+                        label {
+                            input {
+                                display: none;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -194,6 +227,7 @@ body {
         }
     }
     .form {
+        padding: 5rem 0;
         form {
             display: flex;
             flex-flow: column;
@@ -201,6 +235,7 @@ body {
             border-radius: .5rem;
             padding: 2rem;
             width: 14rem;
+            box-shadow: 0px 0px 70px black;
             h2 {
                 display: flex;
                 justify-content: center;
@@ -215,7 +250,10 @@ body {
                 border: 1px solid white;
                 padding: .5rem 1rem;
                 height: auto;
-                margin-top: 1.5rem;
+                margin-top: 1rem;
+                border-radius: .3rem;
+                font-size: .8em;
+                font-family: 'SoletoMedium';
             }
         }
     }
@@ -226,12 +264,13 @@ body {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        background-color: #613077;
+        background-color: $navcolor;
         flex-flow: column;
-        width: 30%;
+        width: 25%;
         margin: auto;
         margin-bottom: 2rem;
         border-radius: .5rem;
+        box-shadow: 0px 0px 90px $navcolor;
         img {
             width: 18rem;
             height: 23rem;
@@ -252,14 +291,19 @@ body {
             padding: .5rem 1rem;
             margin: .5rem 0 0 0;
             width: -webkit-fill-available;
+            border-radius: .3rem;
         }
     }
     #guessform{
         padding: 1rem;
     }
     #front_background {
-        background-image: url("../img/background.jpg");
-        background-color: blue;
+        background-image: url("../img/bakgrund3.png");
+        background-repeat: no-repeat;
+        background-size: 100%;
+        height: 90vh;
+        background-position: center;
+        // opacity: 30%;
     }
     .center {
         display: flex;

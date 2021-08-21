@@ -15,14 +15,14 @@
 
 body {
   margin: 0;
-  background: #19012d;
+  background: #130d27;
   color: white;
   font-family: 'SoletoLight';
 }
 
 body nav {
   padding: 0 2rem 0 2rem;
-  background: #613077;
+  background: #692b6f;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -32,6 +32,12 @@ body nav {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  background-image: url("../img/nti_bakgrund.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  -webkit-box-shadow: 0px 5px 40px black;
+          box-shadow: 0px 5px 40px black;
 }
 
 body nav h1 {
@@ -88,6 +94,18 @@ body header {
           align-items: center;
 }
 
+body header .title-item {
+  height: 5rem;
+}
+
+body header .title-item h2 {
+  font-size: 1.5em;
+}
+
+body header .title-item #games {
+  font-family: 'SoletoLight';
+}
+
 body header a {
   color: white;
   text-decoration: none;
@@ -110,8 +128,8 @@ body .items {
   padding: 4rem;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: auto auto auto auto auto auto;
-      grid-template-columns: auto auto auto auto auto auto;
+  -ms-grid-columns: (auto)[5];
+      grid-template-columns: repeat(5, auto);
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -119,9 +137,11 @@ body .items {
 
 body .items article {
   margin: 1rem;
-  background: #613077;
+  background: #692b6f;
   padding: 1rem 2rem;
   border-radius: .5rem;
+  -webkit-box-shadow: 3px 3px 10px black;
+          box-shadow: 3px 3px 10px black;
 }
 
 body .items article a {
@@ -133,6 +153,14 @@ body .items article a {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+body .items article a .checkbox {
+  height: 1.5rem;
+  width: 1.5rem;
 }
 
 body .items article a p {
@@ -176,7 +204,7 @@ body .selected section {
 
 body .selected section article {
   margin: 1rem;
-  background: #613077;
+  background: #692b6f;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -212,7 +240,7 @@ body .selected section article img {
 }
 
 body #select_submit {
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-family: 'SoletoThin';
   color: white;
   border: 1px white solid;
@@ -243,19 +271,14 @@ body main {
 }
 
 body main article {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  grid-gap: 2rem;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (auto)[5];
+      grid-template-columns: repeat(5, auto);
 }
 
 body main article div {
-  background: #613077;
+  background: #692b6f;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -264,14 +287,32 @@ body main article div {
       -ms-flex-pack: center;
           justify-content: center;
   border-radius: .5rem;
+  -webkit-box-shadow: 3px 3px 10px black;
+          box-shadow: 3px 3px 10px black;
+  margin: 1rem;
 }
 
 body main article div img {
-  height: 12rem;
+  height: 15rem;
   width: 12rem;
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: .5rem .5rem 0 0;
+}
+
+body main article div article {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding-bottom: .5rem;
+  width: 6rem;
+}
+
+body main article div article form label input {
+  display: none;
 }
 
 body div {
@@ -306,6 +347,10 @@ body div form {
   width: fit-content;
 }
 
+body .form {
+  padding: 5rem 0;
+}
+
 body .form form {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -314,10 +359,12 @@ body .form form {
   -webkit-box-direction: normal;
       -ms-flex-flow: column;
           flex-flow: column;
-  background: #613077;
+  background: #692b6f;
   border-radius: .5rem;
   padding: 2rem;
   width: 14rem;
+  -webkit-box-shadow: 0px 0px 70px black;
+          box-shadow: 0px 0px 70px black;
 }
 
 body .form form h2 {
@@ -340,7 +387,10 @@ body .form form .form_button {
   border: 1px solid white;
   padding: .5rem 1rem;
   height: auto;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
+  border-radius: .3rem;
+  font-size: .8em;
+  font-family: 'SoletoMedium';
 }
 
 body #logo {
@@ -358,13 +408,15 @@ body #memorybody {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  background-color: #613077;
+  background-color: #692b6f;
   -ms-flex-flow: column;
       flex-flow: column;
-  width: 30%;
+  width: 25%;
   margin: auto;
   margin-bottom: 2rem;
   border-radius: .5rem;
+  -webkit-box-shadow: 0px 0px 90px #692b6f;
+          box-shadow: 0px 0px 90px #692b6f;
 }
 
 body #memorybody img {
@@ -391,6 +443,7 @@ body #memorybody button {
   padding: .5rem 1rem;
   margin: .5rem 0 0 0;
   width: -webkit-fill-available;
+  border-radius: .3rem;
 }
 
 body #guessform {
@@ -398,8 +451,11 @@ body #guessform {
 }
 
 body #front_background {
-  background-image: url("../img/background.jpg");
-  background-color: blue;
+  background-image: url("../img/bakgrund3.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  height: 90vh;
+  background-position: center;
 }
 
 body .center {
