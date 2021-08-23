@@ -13,6 +13,11 @@
   src: url("../fonts/Dalton_Maag-Soleto_Thin.ttf");
 }
 
+@font-face {
+  font-family: 'SoletoBold';
+  src: url("../fonts/Dalton_Maag-Soleto_Bold.ttf");
+}
+
 body {
   margin: 0;
   background: #130d27;
@@ -33,7 +38,6 @@ body nav {
       -ms-flex-align: center;
           align-items: center;
   background-image: url("../img/nti_bakgrund.png");
-  background-repeat: no-repeat;
   background-size: 100%;
   background-position: center;
   -webkit-box-shadow: 0px 5px 40px black;
@@ -55,10 +59,6 @@ body nav h1 a {
           align-items: center;
 }
 
-body nav h1 a h1 {
-  padding-left: .5rem;
-}
-
 body nav a {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -78,6 +78,13 @@ body nav form input {
   color: white;
   border: 1px solid white;
   padding: .5rem 1rem;
+  font-family: 'SoletoLight';
+  border-radius: .2rem;
+}
+
+body nav form input:hover {
+  background: white;
+  color: #692b6f;
 }
 
 body header {
@@ -124,8 +131,8 @@ body header a p {
   padding-right: .4rem;
 }
 
-body .items {
-  padding: 4rem;
+body form .items {
+  padding: 0 4rem 4rem 4rem;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (auto)[5];
@@ -135,16 +142,17 @@ body .items {
           justify-content: center;
 }
 
-body .items article {
+body form .items article {
   margin: 1rem;
   background: #692b6f;
   padding: 1rem 2rem;
   border-radius: .5rem;
   -webkit-box-shadow: 3px 3px 10px black;
           box-shadow: 3px 3px 10px black;
+  background: linear-gradient(315deg, #3f2164 35%, #ba3985 100%);
 }
 
-body .items article a {
+body form .items article a {
   color: white;
   text-decoration: none;
   display: -webkit-box;
@@ -156,20 +164,79 @@ body .items article a {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  /* When the checkbox is checked, add a blue background */
+  /* Create the checkmark/indicator (hidden when not checked) */
+  /* Show the checkmark when checked */
+  /* Style the checkmark/indicator */
 }
 
-body .items article a .checkbox {
-  height: 1.5rem;
-  width: 1.5rem;
+body form .items article a .checkbox_container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 25px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-body .items article a p {
+body form .items article a .checkbox_container .checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+body form .items article a .checkbox_container .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: .3rem;
+}
+
+body form .items article a .checkbox_container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+body form .items article a .checkbox_container input:checked ~ .checkmark {
+  background-color: #c66cce;
+}
+
+body form .items article a .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+body form .items article a .checkbox_container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+body form .items article a .checkbox_container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+body form .items article a p {
   font-family: 'SoletoMedium';
   padding-right: 1rem;
   font-size: 1.5vw;
 }
 
-body .items article a div {
+body form .items article a div {
   padding: 0 .5rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -182,11 +249,20 @@ body .items article a div {
           justify-content: space-between;
 }
 
-body .items article img {
+body form .items article img {
   height: 14rem;
   width: 14rem;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+body form .items article:hover {
+  background: #4c1f4f;
+  background: linear-gradient(315deg, rgba(63, 33, 100, 0.6) 40%, rgba(186, 57, 133, 0.6) 100%);
+}
+
+body form div {
+  padding: 2rem;
 }
 
 body .selected section {
@@ -246,6 +322,12 @@ body #select_submit {
   border: 1px white solid;
   padding: .5rem 1rem;
   background: none;
+  border-radius: .3rem;
+}
+
+body #select_submit:hover {
+  background: white;
+  color: #692b6f;
 }
 
 body aside {
@@ -290,6 +372,7 @@ body main article div {
   -webkit-box-shadow: 3px 3px 10px black;
           box-shadow: 3px 3px 10px black;
   margin: 1rem;
+  background: linear-gradient(315deg, #3f2164 1%, #ba3985 100%);
 }
 
 body main article div img {
@@ -363,8 +446,9 @@ body .form form {
   border-radius: .5rem;
   padding: 2rem;
   width: 14rem;
-  -webkit-box-shadow: 0px 0px 70px black;
-          box-shadow: 0px 0px 70px black;
+  -webkit-box-shadow: 5px 5px 30px black;
+          box-shadow: 5px 5px 30px black;
+  background: linear-gradient(315deg, #3f2164 15%, #ba3985 100%);
 }
 
 body .form form h2 {
@@ -393,6 +477,11 @@ body .form form .form_button {
   font-family: 'SoletoMedium';
 }
 
+body .form form .form_button:hover {
+  background: white;
+  color: #692b6f;
+}
+
 body #logo {
   width: 12rem;
 }
@@ -415,8 +504,9 @@ body #memorybody {
   margin: auto;
   margin-bottom: 2rem;
   border-radius: .5rem;
-  -webkit-box-shadow: 0px 0px 90px #692b6f;
-          box-shadow: 0px 0px 90px #692b6f;
+  -webkit-box-shadow: 5px 5px 10px black;
+          box-shadow: 5px 5px 10px black;
+  background: linear-gradient(315deg, #3f2164 15%, #ba3985 100%);
 }
 
 body #memorybody img {
@@ -429,6 +519,10 @@ body #memorybody img {
 
 body #memorybody label {
   padding-bottom: .5rem;
+}
+
+body #memorybody #guessform {
+  padding: 1rem;
 }
 
 body #memorybody #guess {
@@ -446,16 +540,44 @@ body #memorybody button {
   border-radius: .3rem;
 }
 
-body #guessform {
-  padding: 1rem;
+body #memorybody button:hover {
+  background: white;
+  color: #692b6f;
 }
 
 body #front_background {
   background-image: url("../img/bakgrund3.png");
-  background-repeat: no-repeat;
   background-size: 100%;
-  height: 90vh;
   background-position: center;
+  height: -webkit-fill-available;
+  font-family: 'SoletoLight';
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+body #front_background button {
+  background: none;
+  color: white;
+  border: 1px solid white;
+  padding: .5rem 1.5rem;
+  font-size: 1.3rem;
+  font-family: 'SoletoThin';
+  border-radius: .2rem;
+}
+
+body #front_background button:hover {
+  background: white;
+  color: #692b6f;
+}
+
+body #front_background div a {
+  color: blueviolet;
+  padding-left: .3rem;
 }
 
 body .center {
@@ -476,5 +598,15 @@ body .center {
 
 body .center a {
   color: blueviolet;
+}
+
+body input[type=text] {
+  border-radius: .1rem;
+  border: 1px solid white;
+}
+
+body input[type=password] {
+  border-radius: .1rem;
+  border: 1px solid white;
 }
 /*# sourceMappingURL=style.css.map */

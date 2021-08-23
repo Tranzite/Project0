@@ -3,8 +3,7 @@ header
     div class="title-item"
         h2 Något gick fel
     div class="title-item"
-    
-main 
-    main class="center" 
-        - if session[:error] != nil 
-            p = session[:error]
+     
+main class="center" 
+    - if session[:error] != nil 
+        p = session[:error]

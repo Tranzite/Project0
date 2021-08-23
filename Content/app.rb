@@ -9,16 +9,11 @@ set :session_secret, 'UoRCowyRlL9sXHu'
 include Helper
 
 before do
-    #p "Before KÖRS, session_user_id är #{session[:id]}."
     if session[:id] != 1
         if (request.path_info == '/klasser/new') || (request.path_info == '/klasser/:id/edit') || (request.path_info == '/klasser/:id/new')
             session[:error] = "Du har inte tillstånd till denna sida."
             redirect('/error')
         end
-    end
-    if (session[:id] == nil) && (request.path_info == '/cart')
-        session[:error] = "You need to log in to view this page."
-        redirect('/error')
     end
 end
   
@@ -32,25 +27,7 @@ get('/') do
     slim(:index)
 end
 
-get('/spel') do
-    db = connect_db("db/webshop.db")
-    result = db.execute("SELECT * FROM selected_classes WHERE user_id = ?",session[:id])
-    empty = nil
-    if result.empty?
-        empty = true
-    else
-        empty = false
-        i = 0
-        result2 = []
-        while i < result.length
-            result2 << result[i]['class_id']
-            i+=1
-        end
-        result3 = db.execute("SELECT * FROM students WHERE class_id IN (#{result2.join(",")})")
-    end
-    slim(:"games/guess",locals:{students:result3, empty:empty})
-end
-
+# An api which returns all the choosen students
 get('/api/students') do
     db = connect_db("db/webshop.db")
     result = db.execute("SELECT * FROM selected_classes WHERE user_id = ?",session[:id])
@@ -60,9 +37,7 @@ get('/api/students') do
         result2 << result[i]['class_id']
         i+=1
     end
-    p result2
     result3 = db.execute("SELECT * FROM students WHERE class_id IN (#{result2.join(",")})")
-    p result3
     result3.to_json
 end
 
@@ -165,7 +140,7 @@ post('/klasser/:id/new') do
     redirect("/klasser/#{id}")
 end
 
-# Deletes an item and redirects to /items
+# Deletes an item and redirects to /klasser/:id
 #
 # @param [Integer] id Id of the item
 post('/klasser/:id/delete') do
@@ -185,45 +160,22 @@ get('/klasser/:id/edit') do
     slim(:"/items/edit", locals:{result:result,classes:result2})
 end
 
-# Updates the params of an item and redirects to /items
+# Updates the params of a student and redirects to /klasser/:id
 #
-# @param [Integer] id Id of item
-# @param [String] item_name
-# @param [Integer] price
-# @param [String] description
+# @param [Integer] id Id of student
+# @param [String] student_name
 #
-# @return item is updated
+# @return student is updated
 post('/klasser/:id/update') do
     db = connect_db("db/webshop.db")
     id = params[:id].to_i
     student_name = params[:student_name]
-    #student_class = params[:student_class]
 
     params = [student_name,id]
     is_valid(params)
 
     db.execute("UPDATE students SET name = ? WHERE id = ?",student_name,id)
     redirect("/klasser/#{session[:class_id]}")
-end
-
-# Adds an item to the users cart and redirects to /items
-#
-# @param [Integer] id 
-# @param [Integer] item_count
-# 
-# @return item is added to users cart
-post('/klasser/:id/add_item') do
-    db = connect_db("db/webshop.db")
-    item_count = params[:item_count]
-    id = params[:id].to_i
-
-    result = db.execute("SELECT * FROM items WHERE id = ?", id).first  
-
-    params = [item_count]
-    is_valid(params)
-
-    db.execute("INSERT INTO cart (user_id,item_id,item_count) VALUES (?,?,?)",session[:id],result["id"],item_count)
-    redirect('/klasser')
 end
 
 # Displays the users students
@@ -240,12 +192,32 @@ get('/elever') do
     slim(:"selected/index",locals:{students:result3})
 end
 
+# Displays a page for a memory quiz minigame
+get('/spel') do
+    db = connect_db("db/webshop.db")
+    result = db.execute("SELECT * FROM selected_classes WHERE user_id = ?",session[:id])
+    empty = nil
+    if result.empty?
+        empty = true
+    else
+        empty = false
+        i = 0
+        result2 = []
+        while i < result.length
+            result2 << result[i]['class_id']
+            i+=1
+        end
+        result3 = db.execute("SELECT * FROM students WHERE class_id IN (#{result2.join(",")})")
+    end
+    slim(:"games/guess",locals:{students:result3, empty:empty})
+end
+
 # Displays a login page
 get('/login') do
     slim(:"users/login")
 end
   
-# The user is logged in and redirected to /items
+# The user is logged in and redirected to /klasser
 #
 # @param [String] username
 # @param [String] password

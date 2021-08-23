@@ -1,5 +1,6 @@
 $bgcolor: #130d27;
 $navcolor: #692b6f;
+$gradientcolor: #c66cce;
 $textcolor: white;
 // ruby app.rb -o 0.0.0.0
 // http://192.168.4.182:4567
@@ -15,6 +16,15 @@ $textcolor: white;
     font-family: 'SoletoThin';
     src: url('../fonts/Dalton_Maag-Soleto_Thin.ttf');
 }
+@font-face {
+    font-family: 'SoletoBold';
+    src: url('../fonts/Dalton_Maag-Soleto_Bold.ttf');
+}
+
+@mixin background-settings {
+    background-size: 100%;
+    background-position: center;
+}
 
 body {
     margin: 0;
@@ -28,9 +38,7 @@ body {
         justify-content: flex-end;
         align-items: center;
         background-image: url("../img/nti_bakgrund.png");
-        background-repeat: no-repeat;
-        background-size: 100%;
-        background-position: center;
+        @include background-settings;
         box-shadow: 0px 5px 40px black;
         h1 {
             flex-grow: 1;
@@ -39,9 +47,6 @@ body {
             font-size: 1.8rem;
             a {
                 align-items: center;
-                h1 {
-                    padding-left: .5rem;
-                }
             }
         }
         a {
@@ -59,6 +64,12 @@ body {
                 color: $textcolor;
                 border: 1px solid white;
                 padding: .5rem 1rem;
+                font-family: 'SoletoLight';
+                border-radius: .2rem;
+            }
+            input:hover {
+                background: white;
+                color: $navcolor;
             }
         }
     }
@@ -90,44 +101,115 @@ body {
             }
         }
     }
-    .items {
-        padding: 4rem;
-        display: grid;
-        grid-template-columns: repeat(5, auto);
-        justify-content: center;
-        article {
-            margin: 1rem;
-            background: $navcolor;
-            padding: 1rem 2rem;
-            border-radius: .5rem;
-            box-shadow: 3px 3px 10px black;
-            a {
-                color: $textcolor;
-                text-decoration: none;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                .checkbox {
-                    height: 1.5rem;
-                    width: 1.5rem;
-                }
-                p {
-                    font-family: 'SoletoMedium';
-                    padding-right: 1rem;
-                    font-size: 1.5vw;
-                }
-                div {
-                    padding: 0 .5rem;
+    form {
+        .items {
+            padding: 0 4rem 4rem 4rem;
+            display: grid;
+            grid-template-columns: repeat(5, auto);
+            justify-content: center;
+            article {
+                margin: 1rem;
+                background: $navcolor;
+                padding: 1rem 2rem;
+                border-radius: .5rem;
+                box-shadow: 3px 3px 10px black;
+                //background: linear-gradient(-45deg, rgb(0, 0, 0) 0%, $navcolor 35%, $gradientcolor 100%);           
+                //background: linear-gradient(315deg, rgba(63,33,100,1) 35%, rgba(207,63,140,1) 100%);
+                background: linear-gradient(315deg, #3f2164 35%, #ba3985 100%);
+                a {
+                    color: $textcolor;
+                    text-decoration: none;
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
+                    .checkbox_container {
+                        display: block;
+                        position: relative;
+                        padding-left: 35px;
+                        margin-bottom: 25px;
+                        cursor: pointer;
+                        font-size: 22px;
+                        -webkit-user-select: none;
+                        -moz-user-select: none;
+                        -ms-user-select: none;
+                        user-select: none;
+                        .checkbox {
+                            position: absolute;
+                            opacity: 0;
+                            cursor: pointer;
+                            height: 0;
+                            width: 0;
+                        }
+                        .checkmark {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            height: 25px;
+                            width: 25px;
+                            background-color: #eee;
+                            border-radius: .3rem;
+                        }
+                    }
+                    .checkbox_container:hover input ~ .checkmark {
+                        background-color: #ccc;
+                    }
+                      
+                      /* When the checkbox is checked, add a blue background */
+                    .checkbox_container input:checked ~ .checkmark {
+                        background-color: $gradientcolor;
+                    }
+                      
+                      /* Create the checkmark/indicator (hidden when not checked) */
+                    .checkmark:after {
+                        content: "";
+                        position: absolute;
+                        display: none;
+                    }
+                      
+                      /* Show the checkmark when checked */
+                    .checkbox_container input:checked ~ .checkmark:after {
+                        display: block;
+                    }
+                      
+                      /* Style the checkmark/indicator */
+                    .checkbox_container .checkmark:after {
+                        left: 9px;
+                        top: 5px;
+                        width: 5px;
+                        height: 10px;
+                        border: solid white;
+                        border-width: 0 3px 3px 0;
+                        -webkit-transform: rotate(45deg);
+                        -ms-transform: rotate(45deg);
+                        transform: rotate(45deg);
+                    }
+                    p {
+                        font-family: 'SoletoMedium';
+                        padding-right: 1rem;
+                        font-size: 1.5vw;
+                    }
+                    div {
+                        padding: 0 .5rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                    }
+                }
+                img {
+                    height: 14rem;
+                    width: 14rem;
+                    object-fit: cover;
                 }
             }
-            img {
-                height: 14rem;
-                width: 14rem;
-                object-fit: cover;
+            article:hover {
+                background: #4c1f4f;
+                //background: linear-gradient(-45deg, rgba(2,0,36,1) 0%, rgba(43,18,46,1) 35%, rgba(105,43,111,1) 100%);
+                //background: linear-gradient(315deg,rgba(30,13,36,1) 30%, #85295f 100%);
+                background: linear-gradient(315deg, rgba(63,33,100,0.6) 40%, rgba(186,57,133,0.6) 100%);
             }
+        }
+        div {
+            padding: 2rem;
         }
     }
     .selected {
@@ -167,6 +249,11 @@ body {
         border: 1px white solid;
         padding: .5rem 1rem;
         background: none;
+        border-radius: .3rem;
+    }
+    #select_submit:hover {
+        background: white;
+        color: $navcolor;
     }
     aside {
         background: white;
@@ -191,6 +278,7 @@ body {
                 border-radius: .5rem;
                 box-shadow: 3px 3px 10px black;
                 margin: 1rem;
+                background: linear-gradient(315deg, #3f2164 1%, #ba3985 100%);
                 img {
                     height: 15rem;
                     width: 12rem;
@@ -235,7 +323,8 @@ body {
             border-radius: .5rem;
             padding: 2rem;
             width: 14rem;
-            box-shadow: 0px 0px 70px black;
+            box-shadow: 5px 5px 30px black;
+            background: linear-gradient(315deg, #3f2164 15%, #ba3985 100%);
             h2 {
                 display: flex;
                 justify-content: center;
@@ -255,6 +344,10 @@ body {
                 font-size: .8em;
                 font-family: 'SoletoMedium';
             }
+            .form_button:hover {
+                background: white;
+                color: $navcolor;
+            }
         }
     }
     #logo {
@@ -270,7 +363,8 @@ body {
         margin: auto;
         margin-bottom: 2rem;
         border-radius: .5rem;
-        box-shadow: 0px 0px 90px $navcolor;
+        box-shadow: 5px 5px 10px black;
+        background: linear-gradient(315deg, #3f2164 15%, #ba3985 100%);
         img {
             width: 18rem;
             height: 23rem;
@@ -279,6 +373,9 @@ body {
         }
         label {
             padding-bottom: .5rem;
+        }
+        #guessform{
+            padding: 1rem;
         }
         #guess {
             height: 1.1rem;
@@ -293,17 +390,37 @@ body {
             width: -webkit-fill-available;
             border-radius: .3rem;
         }
-    }
-    #guessform{
-        padding: 1rem;
+        button:hover {
+            background: white;
+            color: $navcolor;
+        }
     }
     #front_background {
         background-image: url("../img/bakgrund3.png");
-        background-repeat: no-repeat;
-        background-size: 100%;
-        height: 90vh;
-        background-position: center;
-        // opacity: 30%;
+        @include background-settings;
+        height: -webkit-fill-available;
+        font-family: 'SoletoLight';
+        display: flex;
+        flex-direction: column;
+        button {
+            background: none;
+            color: white;
+            border: 1px solid white;
+            padding: .5rem 1.5rem;
+            font-size: 1.3rem;
+            font-family: 'SoletoThin';
+            border-radius: .2rem;
+        }
+        button:hover {
+            background: white;
+            color: $navcolor;
+        }
+        div {
+            a {
+                color: blueviolet;
+                padding-left: .3rem;
+            }
+        }
     }
     .center {
         display: flex;
@@ -313,5 +430,13 @@ body {
         a {
             color: blueviolet;
         }
+    }
+    input[type=text] {
+        border-radius: .1rem;
+        border: 1px solid white;
+    }
+    input[type=password] {
+        border-radius: .1rem;
+        border: 1px solid white;
     }
 } 
