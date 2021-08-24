@@ -26,8 +26,11 @@ header
         
 
 javascript:
-    const names = fetch('/api/students').then(response => response.json()).then(data => guessNames(data))
-
+    // The line below fetches a hash of students from the database and imports it into our function.
+    const names = fetch('/api/students').then(response => response.json()).then(data => guessNames(data)) 
+    // The following function takes the hash of students and randomizes a number which will in turn select a student in the hash.
+    // It then procedes to gather the data from the hash and exports it to the website which will show the randomly selected students picture 
+    // and following it a hidden name which the user will have to guess to get the answer correct.
     function guessNames(names){
         const randomPos = Math.floor(Math.random() * names.length);
         const randomName = names[randomPos]['name']

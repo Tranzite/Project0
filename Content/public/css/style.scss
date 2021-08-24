@@ -2,8 +2,7 @@ $bgcolor: #130d27;
 $navcolor: #692b6f;
 $gradientcolor: #c66cce;
 $textcolor: white;
-// ruby app.rb -o 0.0.0.0
-// http://192.168.4.182:4567
+
 @font-face {
     font-family: 'SoletoLight';
     src: url('../fonts/Dalton_Maag-Soleto_Light.ttf');
@@ -61,14 +60,14 @@ body {
         form {
             input {
                 background: none;
-                color: $textcolor;
-                border: 1px solid white;
-                padding: .5rem 1rem;
+                color: $textcolor; //
+                border: 1px solid $textcolor; //
+                padding: .5rem 1rem; //
                 font-family: 'SoletoLight';
                 border-radius: .2rem;
             }
             input:hover {
-                background: white;
+                background: $textcolor;
                 color: $navcolor;
             }
         }
@@ -113,8 +112,6 @@ body {
                 padding: 1rem 2rem;
                 border-radius: .5rem;
                 box-shadow: 3px 3px 10px black;
-                //background: linear-gradient(-45deg, rgb(0, 0, 0) 0%, $navcolor 35%, $gradientcolor 100%);           
-                //background: linear-gradient(315deg, rgba(63,33,100,1) 35%, rgba(207,63,140,1) 100%);
                 background: linear-gradient(315deg, #3f2164 35%, #ba3985 100%);
                 a {
                     color: $textcolor;
